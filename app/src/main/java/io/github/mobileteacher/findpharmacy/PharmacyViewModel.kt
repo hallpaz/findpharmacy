@@ -1,12 +1,10 @@
 package io.github.mobileteacher.findpharmacy
 
 import android.app.Application
+import android.os.AsyncTask
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import io.github.mobileteacher.findpharmacy.dao.PharmacyDAO
 import io.github.mobileteacher.findpharmacy.model.Pharmacy
 
 class PharmacyViewModel(application: Application):AndroidViewModel(application) {
@@ -25,8 +23,26 @@ class PharmacyViewModel(application: Application):AndroidViewModel(application) 
 
 
     fun insert(pharmacy: Pharmacy){
-        repository.insert(pharmacy)
-//        Log.d("VIEWMODEL", "insert $pharmacy.name")
+        DoAsync {
+            repository.insert(pharmacy)
+        }
+    }
+
+    fun delete(pharmacy: Pharmacy){
+        DoAsync {
+            repository.delete(pharmacy)
+        }
+    }
+
+    class DoAsync(val action: ()->Unit): AsyncTask<Unit, Unit, Unit>() {
+
+        init {
+            execute()
+        }
+
+        override fun doInBackground(vararg params: Unit?) {
+            action()
+        }
     }
 
 }

@@ -24,4 +24,8 @@ class PharmacyRepository(private val pharmacyDAO: PharmacyDAO) {
         pharmacyDAO.insert(pharmacy)
     }
 
+    fun delete(pharmacy: Pharmacy){
+        pharmacyDAO.delete(pharmacy)
+    }
+
 }

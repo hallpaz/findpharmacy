@@ -19,12 +19,11 @@ abstract class PharmacyDatabase: RoomDatabase() {
         const val DBNAME = "PharmacyDataBase"
 
         fun getInstance(context: Context):PharmacyDatabase {
-            return INSTANCE ?: run {
+            return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     PharmacyDatabase::class.java,
                     DBNAME)
-                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 instance
