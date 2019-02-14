@@ -12,21 +12,21 @@ import io.github.mobileteacher.findpharmacy.model.Pharmacy
 class PharmacyViewModel(application: Application):AndroidViewModel(application) {
 
     // não é privado, porque será observado
-    val pharmaciesList: LiveData<List<Pharmacy>> = MutableLiveData()
-//    private val repository: PharmacyRepository
-//
+    val pharmaciesList: LiveData<List<Pharmacy>>
+    private val repository: PharmacyRepository
+
 
     init {
         val database = PharmacyDatabase.getInstance(application.applicationContext)
-//        val dao = database.pharmacyDao()
-//        repository = PharmacyRepository(dao)
-//        pharmaciesList = repository.listPharmacies()
+        val dao = database.pharmacyDao()
+        repository = PharmacyRepository(dao)
+        pharmaciesList = repository.listPharmacies()
     }
 
 
     fun insert(pharmacy: Pharmacy){
-//        repository.insert(pharmacy)
-        Log.d("VIEWMODEL", "insert $pharmacy.name")
+        repository.insert(pharmacy)
+//        Log.d("VIEWMODEL", "insert $pharmacy.name")
     }
 
 }

@@ -24,11 +24,10 @@ abstract class PharmacyDatabase: RoomDatabase() {
                     context.applicationContext,
                     PharmacyDatabase::class.java,
                     DBNAME)
-                    .fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
-                return instance
+                instance
             }
 
         }

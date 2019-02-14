@@ -32,12 +32,12 @@ class MainActivity : AppCompatActivity() {
 
         pharmacyViewModel = ViewModelProviders.of(this).get(PharmacyViewModel::class.java)
 
-//        pharmacyViewModel.pharmaciesList.observe(this, Observer {list->
-//            val adapter = recyclerView.adapter
-//            if (adapter is PharmacyAdapter){
-//                adapter.setNewList(list)
-//            }
-//        })
+        pharmacyViewModel.pharmaciesList.observe(this, Observer {list->
+            val adapter = recyclerView.adapter
+            if (adapter is PharmacyAdapter){
+                adapter.setNewList(list)
+            }
+        })
 
     }
 
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                         val pharmacy = Pharmacy(name, phone)
 
 
-//                        pharmacyViewModel.insert(pharmacy)
+                        pharmacyViewModel.insert(pharmacy)
                     }
 
 
