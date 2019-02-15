@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.github.mobileteacher.findpharmacy.model.Pharmacy
+import java.text.SimpleDateFormat
 
 class PharmacyAdapter(var items: List<Pharmacy> = listOf())
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -41,6 +42,10 @@ class PharmacyAdapter(var items: List<Pharmacy> = listOf())
             val pharmacy = items[position]
             holder.nameTextView.text = pharmacy.name
             holder.phoneTextView.text = pharmacy.phoneNumber
+
+            val sdf = SimpleDateFormat("dd/MM/yyyy")
+
+            holder.dateTextView.text = sdf.format(pharmacy.openAt)
         }
     }
 
@@ -50,7 +55,7 @@ class PharmacyAdapter(var items: List<Pharmacy> = listOf())
     class PharmacyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.pharmacy_name_textview)
         val phoneTextView: TextView = itemView.findViewById(R.id.phone_textview)
-
+        val dateTextView: TextView = itemView.findViewById(R.id.date_textview)
     }
 
     class EmptyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)

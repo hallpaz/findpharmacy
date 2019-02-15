@@ -7,8 +7,10 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import io.github.mobileteacher.findpharmacy.model.Address
 import io.github.mobileteacher.findpharmacy.model.Pharmacy
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -57,8 +59,10 @@ class MainActivity : AppCompatActivity() {
                     data?.let {data->
                         val name = data.getStringExtra(AddPharmacyActivity.PHARMACY_NAME)
                         val phone = data.getStringExtra(AddPharmacyActivity.PHARMACY_PHONE)
-                        val pharmacy = Pharmacy(name, phone)
-
+                        val pharmacy = Pharmacy(name,
+                                                phone,
+                                                Address("Rua tal", "700", "20000-111"),
+                                                Calendar.getInstance().time)
 
                         pharmacyViewModel.insert(pharmacy)
                     }

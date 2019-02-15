@@ -4,12 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import io.github.mobileteacher.findpharmacy.dao.PharmacyDAO
+import io.github.mobileteacher.findpharmacy.model.DateConverter
 import io.github.mobileteacher.findpharmacy.model.Pharmacy
 
 
 
-@Database(entities = [Pharmacy::class], version = 1)
+@Database(entities = [Pharmacy::class], version = 3)
+@TypeConverters(DateConverter::class)
 abstract class PharmacyDatabase: RoomDatabase() {
     abstract fun pharmacyDao(): PharmacyDAO
 
@@ -24,6 +29,7 @@ abstract class PharmacyDatabase: RoomDatabase() {
                     context.applicationContext,
                     PharmacyDatabase::class.java,
                     DBNAME)
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance
@@ -31,7 +37,13 @@ abstract class PharmacyDatabase: RoomDatabase() {
 
         }
     }
-
 }
+
+//val Migration_2_3 = object : Migration(2, 3) {
+//    override fun migrate(database: SupportSQLiteDatabase) {
+//        database.execSQL("ALTER TABLE Pharmacy DROP COLUMN address")
+//    }
+//
+//}
 
 
